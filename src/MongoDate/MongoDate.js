@@ -41,6 +41,11 @@ MongoDate.prototype.toObjectID = function(){
   return this.ObjectID;
 }
 
+MongoDate.prototype.fromObjectID = function(_objid){
+  this.date = new Date(parseInt(_objid.toString().slice(0,8), 16) * 1000);
+  return this.date;
+}
+
 MongoDate.prototype.today = function(){
   var now = new Date();
   var year = now.getFullYear(),
@@ -60,6 +65,10 @@ MongoDate.prototype.days_ago = function(days){
   var result = new Date(this.date.getTime() - (days * 86400000));
   this.date = result;
   return this;
+}
+
+MongoDate.prototype.yesterday = function(){
+  return this.days_ago(1);
 }
 
 exports.MongoDate = MongoDate
